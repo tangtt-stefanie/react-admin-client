@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+/*
+ * @Author: MR.T
+ * @Date: 2020-11-14 20:34:53
+ * @LastEditors: MR.T
+ * @LastEditTime: 2020-11-18 13:00:27
+ * @Description: No Description
+ * @FilePath: \react-admin-client\src\App.js
+ */
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import React, { Component } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Login from './pages/login/login';
+import Admin from './pages/admin/admin';
+
+// 根组件
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {  }
+  }
+  render() { 
+    return ( 
+      <BrowserRouter>
+      {/* Switch：只精确匹配其中一个 */}
+        <Switch>
+          <Route path='/login' component={Login}></Route>
+          <Route path='/' component={Admin}></Route>
+        </Switch>
+      </BrowserRouter> 
+    );
+  }
 }
 
 export default App;
