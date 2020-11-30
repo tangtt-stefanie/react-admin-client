@@ -2,7 +2,7 @@
  * @Author: MR.T
  * @Date: 2020-11-26 09:45:56
  * @LastEditors: MR.T
- * @LastEditTime: 2020-11-27 09:22:02
+ * @LastEditTime: 2020-11-30 09:52:51
  * @Description: 发送异步请求ajax模块,封装axios
  * @FilePath: \react-admin-client\src\api\ajax.js
  */

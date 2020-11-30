@@ -2,7 +2,7 @@
  * @Author: MR.T
  * @Date: 2020-11-27 10:29:39
  * @LastEditors: MR.T
- * @LastEditTime: 2020-11-29 21:31:47
+ * @LastEditTime: 2020-11-30 09:08:44
  * @Description:左侧导航栏
  * @FilePath: \react-admin-client\src\components\header\index.jsx
  */
@@ -59,17 +59,17 @@ import LinkButton from '../../components/link-button'
 
     //定时器:获取时间
     componentDidMount(){
-        this.inIntervalOrder = setInterval(()=>{
-            console.log('formatDate(getDate()):',formatDate(getDate()))
-            this.setState({
-                currentDate:formatDate(getDate())
-            })
-        },1000)
+        // this.inIntervalOrder = setInterval(()=>{
+        //     console.log('formatDate(getDate()):',formatDate(getDate()))
+        //     this.setState({
+        //         currentDate:formatDate(getDate())
+        //     })
+        // },1000)
     }
 
     //组件卸载前清除定时器
     componentWillUnmount(){
-        clearInterval(this.inIntervalOrder)
+        // clearInterval(this.inIntervalOrder)
     }
 
     render(){
