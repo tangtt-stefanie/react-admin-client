@@ -2,7 +2,7 @@
  * @Author: MR.T
  * @Date: 2020-12-01 09:04:59
  * @LastEditors: MR.T
- * @LastEditTime: 2020-12-04 19:46:12
+ * @LastEditTime: 2020-12-04 19:49:22
  * @Description: Product添加和更新的子路由
  * @FilePath: \react-admin-client\src\pages\categorys\product\add-update.jsx
  */
@@ -82,20 +82,20 @@ class ProductAddUpdate extends Component {
     })
 
     //如果是修改商品,且该商品是二级分类的商品，则提前把二级分类渲染出来
-    // let product = this.props.location.state
-    // if(product && product.pCategoryId !== '0'){
-    //   const targetOption = options.find((option)=>{
-    //     return option.value === product.pCategoryId
-    //   })
-    //   const categorys = await this.getCategorys(targetOption.value)
-    //   targetOption.children = categorys.map((category)=>{
-    //     return {
-    //       label: category.name,
-    //       value: category._id,
-    //       isLeaf:true
-    //     }
-    //   })
-    // }
+    let product = this.props.location.state
+    if(product && product.pCategoryId !== '0'){
+      const targetOption = options.find((option)=>{
+        return option.value === product.pCategoryId
+      })
+      const categorys = await this.getCategorys(targetOption.value)
+      targetOption.children = categorys.map((category)=>{
+        return {
+          label: category.name,
+          value: category._id,
+          isLeaf:true
+        }
+      })
+    }
 
     this.setState({options})
   }
