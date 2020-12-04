@@ -2,7 +2,7 @@
  * @Author: MR.T
  * @Date: 2020-11-27 10:29:39
  * @LastEditors: MR.T
- * @LastEditTime: 2020-11-29 12:38:16
+ * @LastEditTime: 2020-12-01 10:49:28
  * @Description:左侧导航栏
  * @FilePath: \react-admin-client\src\components\left-nav\index.jsx
  */
@@ -26,7 +26,10 @@ class LeftNav extends Component{
 
     //获取侧边栏MenuNodes
     getMenuNodes(menuList){
-        const path = this.props.location.pathname
+        let path = this.props.location.pathname
+        if(path.indexOf('/categorys/product') != -1){//商品管理特殊处理
+            path = '/categorys/product'
+        }
         let defaultOpenKeys = []
         const menuNodes = menuList.map((menu)=>{
             if(!menu.children){

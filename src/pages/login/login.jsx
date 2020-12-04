@@ -2,7 +2,7 @@
  * @Author: MR.T
  * @Date: 2020-11-18 12:40:39
  * @LastEditors: MR.T
- * @LastEditTime: 2020-11-28 08:46:54
+ * @LastEditTime: 2020-12-03 10:48:14
  * @Description: 登录s
  * @FilePath: \react-admin-client\src\pages\login\login.jsx
  */
@@ -56,8 +56,6 @@ class Login extends Component {
         }else{
             message.error(res.msg)
         }
-       
-        
     };
 
     onFinishFailed = errorInfo => {

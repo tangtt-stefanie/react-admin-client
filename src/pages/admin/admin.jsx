@@ -2,7 +2,7 @@
  * @Author: MR.T
  * @Date: 2020-11-18 12:45:16
  * @LastEditors: MR.T
- * @LastEditTime: 2020-11-29 20:29:13
+ * @LastEditTime: 2020-12-01 09:02:41
  * @Description: No Description
  * @FilePath: \react-admin-client\src\pages\admin\admin.jsx
  */
@@ -14,8 +14,8 @@ import { Layout } from 'antd';
 import LeftNav from '../../components/left-nav'
 import Header from '../../components/header'
 import Home from '../home/home'
-import Category from '../categorys/category'
-import Product from '../categorys/product'
+import Category from '../categorys/category/category'
+import Product from '../categorys/product/product'
 import Role from '../role/role'
 import User from '../user/user'
 import Bar from '../charts/bar'

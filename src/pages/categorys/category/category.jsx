@@ -3,15 +3,15 @@
  * @Author: MR.T
  * @Date: 2020-11-28 08:39:57
  * @LastEditors: MR.T
- * @LastEditTime: 2020-11-30 23:59:25
+ * @LastEditTime: 2020-12-02 09:30:01
  * @Description: 商品分类
- * @FilePath: \react-admin-client\src\pages\categorys\category.jsx
+ * @FilePath: \react-admin-client\src\pages\categorys\category\category.jsx
  */
 import React, {Component} from "react";
-import { Card, Table, Button, message, Breadcrumb, Modal } from 'antd'
+import { Card, Table, Button, message, Breadcrumb } from 'antd'
 import { PlusOutlined } from '@ant-design/icons';
-import LinkButton from '../../components/link-button'
-import { reqGetCategorys, reqAddCategory, reqUpdateCategory } from '../../api'
+import LinkButton from '../../../components/link-button'
+import { reqGetCategorys } from '../../../api'
 import AddForm from './comonents/add-form'
 import UpdateForm from './comonents/update-form'
 
@@ -24,13 +24,14 @@ class Category extends Component {
       categorys: [],
       showStatus: '0',//Modal框是否显示:0-都不显示,1-显示添加,2-显示修改
       category: {},
-      updateCategoryId: ''
+      updateCategoryId: '',
+      loading: false
     };
   }
 
   parentId = '0'
 
-  loading = true
+  
 
   columns = [
     {
@@ -75,11 +76,10 @@ class Category extends Component {
   }
 
   async getCategorys(parentId){
-    this.loading = true
+    this.setState({loading:true})
     this.parentId = parentId
-
     const result = await reqGetCategorys(parentId)
-    this.loading = false
+    this.setState({loading:false})
     if(result.status === 0){
       this.setState({categorys:result.data})
     }else{
@@ -93,7 +93,7 @@ class Category extends Component {
   }
 
   render() {
-    const { categorys, showStatus, category, updateCategoryId } = this.state
+    const { categorys, showStatus, category, updateCategoryId, loading } = this.state
     const title = (
       <Breadcrumb>
         <Breadcrumb.Item onClick={()=>{this.getCategorys('0')}}>
@@ -116,7 +116,7 @@ class Category extends Component {
     return (
       <Card title={title} extra={extra}>
         <Table dataSource={categorys} columns={this.columns} rowKey={record => record._id} bordered
-          pagination={{pageSize:6,showQuickJumper:true,onChange:this.paginationOnchange}} loading={this.loading}
+          pagination={{pageSize:6,showQuickJumper:true}} loading={loading}
         />;
         <AddForm visible={showStatus === 1} category={category} categorys={categorys} 
           parentId={this.parentId} getCategorys={this.getCategorys.bind(this)} 

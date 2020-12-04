@@ -2,7 +2,7 @@
  * @Author: MR.T
  * @Date: 2020-11-27 10:29:39
  * @LastEditors: MR.T
- * @LastEditTime: 2020-11-30 09:08:44
+ * @LastEditTime: 2020-12-01 09:31:28
  * @Description:左侧导航栏
  * @FilePath: \react-admin-client\src\components\header\index.jsx
  */
@@ -28,12 +28,15 @@ import LinkButton from '../../components/link-button'
 
     //获取菜单头
     getTitle(){
-        const path = this.props.location.pathname
+        let path = this.props.location.pathname
         let title
         menuList.forEach(menu => {
             if(menu.path === path){
                 title = menu.title
             }else if(menu.children){
+                if(path.indexOf('/categorys/product') != -1){//商品管理特殊处理
+                    path = '/categorys/product'
+                }
                 const cMenu = menu.children.find(cMenu=> cMenu.path === path)
                 if(cMenu){
                     title = cMenu.title
