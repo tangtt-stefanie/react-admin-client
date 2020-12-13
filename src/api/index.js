@@ -2,7 +2,7 @@
  * @Author: MR.T
  * @Date: 2020-11-26 10:51:52
  * @LastEditors: MR.T
- * @LastEditTime: 2020-12-03 09:45:05
+ * @LastEditTime: 2020-12-11 10:38:16
  * @Description: 包含应用中所有请求函数的模块
  * @FilePath: \react-admin-client\src\api\index.js
  */
@@ -39,3 +39,18 @@ export const reqCategoryInfo = (categoryId) => ajax('/manage/category/info', {ca
 
 // 更新商品在售/下架状态
 export const reqUpdateStatus = ({productId,status}) => ajax('/manage/product/updateStatus', {productId,status}, 'POST')
+
+//删除图片
+export const reqDeleteImg = (name) => ajax('/manage/img/delete', {name}, 'POST')
+
+//添加/修改商品
+export const reqUpdateOrAddProduct = (product) => ajax(`/manage/product/${product._id?'update':'add'}`, product, 'POST')
+
+//获取角色列表
+export const reqGetRoles = () => ajax('/manage/role/list')
+
+//添加角色
+export const reqAddRole = (roleName) => ajax('/manage/role/add', roleName, 'POST')
+
+//更新角色(设置角色权限)
+export const reqUpdateRole = (role) => ajax('/manage/role/update', role, 'POST')

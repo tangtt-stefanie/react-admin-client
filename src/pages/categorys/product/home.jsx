@@ -2,7 +2,7 @@
  * @Author: MR.T
  * @Date: 2020-12-01 09:04:17
  * @LastEditors: MR.T
- * @LastEditTime: 2020-12-04 16:15:47
+ * @LastEditTime: 2020-12-10 11:31:32
  * @Description: Product默认子路由
  * @FilePath: \react-admin-client\src\pages\categorys\product\home.jsx
  */
@@ -20,7 +20,7 @@ class ProducHome extends Component {
     this.state = {
       products: [],
       total: 0,
-      pageSize: 2,
+      pageSize: 4,
       loading: false,
       searchContent:'',
       searchType:'productName'

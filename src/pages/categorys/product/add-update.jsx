@@ -2,14 +2,16 @@
  * @Author: MR.T
  * @Date: 2020-12-01 09:04:59
  * @LastEditors: MR.T
- * @LastEditTime: 2020-12-04 19:49:22
+ * @LastEditTime: 2020-12-10 09:40:39
  * @Description: Product添加和更新的子路由
  * @FilePath: \react-admin-client\src\pages\categorys\product\add-update.jsx
  */
 import React, {Component} from "react";
-import { Button, Card, Form, Input, Cascader } from "antd";
+import { Button, Card, Form, Input, Cascader, message } from "antd";
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { reqGetCategorys } from '../../../api'
+import { reqGetCategorys, reqUpdateOrAddProduct } from '../../../api'
+import PicturesWall from './pictures-wall'
+import RichTextEditor from './rich-text-editor'
 
 const Item = Form.Item
 const TextArea = Input.TextArea;
@@ -30,15 +32,49 @@ class ProductAddUpdate extends Component {
   //form表单ref
   formRef = React.createRef();
 
+  pw = React.createRef();
+
+  editor = React.createRef();
 
 
   //提交表单
   submit = async () =>{
-    //进行表单验证，通过了发送请求
+    //进行表单验证，收集接口参数
     const form = this.formRef.current
     try {
       const values = await form.validateFields()
-      console.log('values:',values)
+      const imgs = this.pw.current.getFiles()
+      const detail = this.editor.current.getDetail()
+
+      // console.log('values:',values)
+      // console.log('imgs:',imgs)
+      // console.log('detail:',detail)
+
+      const { categoryIds } = values
+      let pCategoryId,categoryId
+      if(categoryIds.length === 1){
+        pCategoryId = '0'
+        categoryId = categoryIds[0]
+      }else{
+        pCategoryId = categoryIds[0]
+        categoryId = categoryIds[1]
+      }
+      const product = {...values,pCategoryId,categoryId,imgs,detail}
+
+      let propProduct = this.props.location.state  
+      let isUpdate = !!propProduct // 是否是更新
+      if(isUpdate){
+        product._id = propProduct._id
+      }
+
+      //发送请求
+      const result = await reqUpdateOrAddProduct(product)
+      if(result.status === 0){
+        message.success(`${isUpdate?'更新':'添加'}商品成功`)
+        this.props.history.goBack()
+      }else{
+        message.error(`${isUpdate?'更新':'添加'}商品失败`)
+      }
     } catch (error) {
       console.log('error:',error)
     }
@@ -54,8 +90,6 @@ class ProductAddUpdate extends Component {
   onChange = (value, selectedOptions) => {
     console.log('onChange----------',value, selectedOptions);
   };
-
-  
 
   //获取子分类
   getCategorys = async (parentId)=>{
@@ -127,7 +161,6 @@ class ProductAddUpdate extends Component {
 
   render() {
     const { options } = this.state
-
     // 设置商品分类初始值
     let product = this.props.location.state  
     let isUpdate = !!product
@@ -149,8 +182,7 @@ class ProductAddUpdate extends Component {
         <span style={{fontSize:'18px'}}>{isUpdate ? '修改' : '添加'}商品</span>
       </span>
     )
-    debugger
- 
+
     return (
       <Card title={title} className='product-detail'>
         <Form
@@ -201,37 +233,25 @@ class ProductAddUpdate extends Component {
           <Item
               label="商品分类"
               name="categoryIds"
-              defaultValue={categoryIds}
               rules={[
                   { required: true, message: '必须指定商品分类!' },
               ]}
           >
-               <Cascader options={options} loadData={this.loadData} onChange={this.onChange} changeOnSelect />
+               <Cascader placeholder="请指定商品分类" options={options} 
+               loadData={this.loadData} onChange={this.onChange} changeOnSelect />
           </Item>
           <Item
               label="商品图片"
-              name=""
-              rules={[
-                  { required: true, message: '请输入商品价格!' },
-              ]}
           >
-               <Input type="number" placeholder="请输入商品价格" addonAfter="元"/>
+              <PicturesWall ref={this.pw} imgs={product.imgs?product.imgs:[]}></PicturesWall>
           </Item>
           <Item
+              wrapperCol={{span:20}}
               label="商品详情"
-              name=""
-              rules={[
-                  { required: true, message: '请输入商品价格!' },
-              ]}
           >
-               <Input type="number" placeholder="请输入商品价格" addonAfter="元"/>
+               <RichTextEditor ref={this.editor} detail={product.detail}></RichTextEditor>
           </Item>
-          <Item
-              name=""
-              rules={[
-                  { required: true, message: '请输入商品价格!' },
-              ]}
-          >
+          <Item>
                <Button type="primary" onClick={this.submit}>提交</Button>
           </Item>
         </Form>
@@ -239,5 +259,12 @@ class ProductAddUpdate extends Component {
     );
   }
 }
+
+// 子组件调用父组件函数方法:父组件向子组件传递函数
+// 父组件调用子组件函数方法:ref
+
+// 子组件获取父组件数据方法:父组件向子组件传递参数
+// 父组件获取子组件数据方法:ref或者父组件传递函数给子组件，让自组件调用来把数据传给该函数
+
 
 export default ProductAddUpdate;

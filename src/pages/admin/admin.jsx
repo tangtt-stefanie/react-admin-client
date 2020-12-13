@@ -2,7 +2,7 @@
  * @Author: MR.T
  * @Date: 2020-11-18 12:45:16
  * @LastEditors: MR.T
- * @LastEditTime: 2020-12-01 09:02:41
+ * @LastEditTime: 2020-12-09 11:01:46
  * @Description: No Description
  * @FilePath: \react-admin-client\src\pages\admin\admin.jsx
  */
@@ -37,7 +37,7 @@ class Admin extends Component {
             return <Redirect to='/login'></Redirect>
         }
         return (
-            <Layout style={{height:'100%'}}>
+            <Layout style={{minHeight:'100%'}}>
             <Sider>
                 <LeftNav></LeftNav>
             </Sider>

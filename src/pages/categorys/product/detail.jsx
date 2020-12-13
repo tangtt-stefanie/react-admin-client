@@ -2,7 +2,7 @@
  * @Author: MR.T
  * @Date: 2020-12-01 09:04:40
  * @LastEditors: MR.T
- * @LastEditTime: 2020-12-03 09:29:34
+ * @LastEditTime: 2020-12-10 09:21:23
  * @Description: Product的详情
  * @FilePath: \react-admin-client\src\pages\categorys\product\detail.jsx
  */
@@ -37,7 +37,6 @@ class ProductDetail extends Component {
   render() {
     const { cName1, cName2 } = this.state
     const { name, desc, price, detail, imgs} = this.props.location.state
-
     const title = (
       <span>
         <ArrowLeftOutlined onClick={()=>this.props.history.goBack()} 
@@ -73,7 +72,7 @@ class ProductDetail extends Component {
             <span>
               {
                 imgs.map((img)=>{
-                  return (<img key={img} className='product-img' src={img} alt="img" />)
+                  return (<img key={img} className='product-img' src={img.url} alt="img" />)
                 })
               }
             </span>
